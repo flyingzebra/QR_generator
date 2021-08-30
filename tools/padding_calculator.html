@@ -1,7 +1,6 @@
 <script>
-var r_pix =    {"data:image/gif;base64,R0lGODdhAQABAPAAAAAAAAAAACwAAAAAAQABAAACAkQBADs=":true ,"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==":false}
 var pix = {true:"data:image/gif;base64,R0lGODdhAQABAPAAAAAAAAAAACwAAAAAAQABAAACAkQBADs=",false:"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
-var hextab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+var r_pix =    {pix[true]:true,pix[false]:false};   // reverse-lookup pixels
 
 var _this = new _THIS();
 function _THIS()
@@ -313,6 +312,7 @@ for(var i=0;i<tbls.length;i++)
 
 function getHexByte(v)
 {
+  var hextab = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
 	return '' + hextab[Math.floor(v / 16)] + hextab[v & 0x0f];
 }
 
