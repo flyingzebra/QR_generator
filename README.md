@@ -1,5 +1,14 @@
 # QR_generator
 
+https://flyingzebra.github.io/QR_generator/tools/padding_calculator.html
+
+
+
+
+
+
+
+
 
 https://www.thonky.com/qr-code-tutorial/format-version-information
 
