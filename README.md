@@ -1,6 +1,6 @@
 # QR_generator
 
-https://flyingzebra.github.io/QR_generator/tools/padding_calculator.html
+<a href="https://flyingzebra.github.io/QR_generator/tools/padding_calculator.html">QR padding calculator</a>
 
 
 
