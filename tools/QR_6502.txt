@@ -1,0 +1,244 @@
+
+Can you write Apple II+/IIe 6502 Assembly code checking for any given string (terminated by 0) which character encoding is appropriate for QR codes.
+The given string could be a match for numeric encoding, whenever 
+
+
+
+ORG $6000
+MAIN.   ; INSERT CODE HERE
+
+
+
+	RTS
+DES_D   ASC " $%*+-./:"
+DESYM   LDX #$FF      ; *** DETECT QR-CODE ALPHANUMERIC RANGE ***
+DE.1    INX
+        CMP DES_D,X
+        BEQ DE.2
+        CPX #$08
+        BNE DE.1
+
+
+DEALP   CMP #"A"      ; (DETECT ALPHABETIC RANG)
+        BCC DENUM
+        CMP #"Z"+1
+        BCS DENUM
+        RTS
+
+
+DENUM   CMP #"0"      ; *** DETECT NUMERIC RANGE, RETURNS CARRY BIT SET WHEN IN RANGE, OTHERWISE CARRY BIT IS CLEAR ***
+        BCC DE.3
+        CMP #"9"+1
+        BCS DE.1
+        RTS
+DE.1    LDA CH_RNG    ; (DETECT OUT OF RANGE)
+        ORA *S0.TZ
+        STA CH_RNG
+        SEC
+        RTS
+
+
+ASC "123 HELLO world"
+HEX 00
+
+
+
+
+Offset = (y & 0x07) * 0x400 + ((y >> 3) * 40) + Math.floor(x / 7)
+Bit = x % 7
+
+Is it possible to write a JavaScript that from an X and Y coordinate and color value
+var hiresCols = [
+ ["#000000","#000000","#000000","#000000","Black"]
+,["#D043E5","#A8A8A8","#69A89E","#A6986A","Purple"]
+,["#2F95E5","#8E8E8E","#598E85","#8C8059","Medium Blue"]
+,["#D06A1A","#717171","#47716B","#706748","Orange"]
+,["#2FBC1A","#575757","#375752","#564F37","Light Green"]
+,["#FFFFFF","#FFFFFF","#A0FFF0","#FCE7A1","White"]
+];
+
+
+
+{
+0:{"idx":0,"col":"#000000","sat":0,"cmp":["#000000"],"pat":new Uint8Array([0b0000,0,0b0000,0]),"cri":{"GREY":-1},"dim":[4,2]},
+1:{"idx":1,"col":"#1E001E","sat":122,"cmp":["#000000","#FF00FF"],"pat":new Uint8Array([0b1000,0,0b0000,0]),"cri":{}},
+2:{"idx":2,"col":"#102010","sat":62,"cmp":["#80FF80","#000000"],"pat":new Uint8Array([0b0100,0,0b0000,0]),"cri":{}},
+4:{"idx":3,"col":"#200020","sat":124,"cmp":["#000000","#FF00FF"],"pat":new Uint8Array([0b0010,0,0b0000,0]),"cri":{}},
+5:{"idx":4,"col":"#7B007B","sat":122,"cmp":["#FF00FF","#000000"],"pat":new Uint8Array([0b1010,0,0b0000,0]),"cri":{}},
+7:{"idx":5,"col":"#7B5D7B","sat":22,"cmp":["#FFFFFF","#FF00FF","#000000"],"pat":new Uint8Array([0b1110,0,0b0000,0]),"cri":{}},
+8:{"idx":6,"col":"#0F1E0F","sat":61,"cmp":["#000000","#80FF80"],"pat":new Uint8Array([0b0001,0,0b0000,0]),"cri":{}},
+10:{"idx":7,"col":"#3E7B3E","sat":61,"cmp":["#80FF80","#000000"],"pat":new Uint8Array([0b0101,0,0b0000,0]),"cri":{}},
+21:{"idx":8,"col":"#990099","sat":122,"cmp":["#FF00FF","#000000"],"pat":new Uint8Array([0b1010,0,0b1000,0]),"cri":{}},
+22:{"idx":9,"col":"#5D405D","sat":29,"cmp":["#FFFFFF","#000000","#FF00FF"],"pat":new Uint8Array([0b0110,0,0b1000,0]),"cri":{}},
+23:{"idx":10,"col":"#995D99","sat":37,"cmp":["#FFFFFF","#FF00FF","#000000"],"pat":new Uint8Array([0b1110,0,0b1000,0]),"cri":{}},
+28:{"idx":11,"col":"#5B3D5B","sat":30,"cmp":["#000000","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b0011,0,0b1000,0]),"cri":{}},
+31:{"idx":12,"col":"#997B99","sat":17,"cmp":["#FFFFFF","#000000","#FF00FF"],"pat":new Uint8Array([0b1111,0,0b1000,0]),"cri":{}},
+40:{"idx":13,"col":"#1F3D1F","sat":60,"cmp":["#000000","#80FF80"],"pat":new Uint8Array([0b0001,0,0b0100,0]),"cri":{}},
+42:{"idx":14,"col":"#4E9B4E","sat":60,"cmp":["#80FF80","#000000"],"pat":new Uint8Array([0b0101,0,0b0100,0]),"cri":{}},
+43:{"idx":15,"col":"#7B9B7B","sat":20,"cmp":["#FFFFFF","#80FF80","#000000"],"pat":new Uint8Array([0b1101,0,0b0100,0]),"cri":{}},
+52:{"idx":16,"col":"#5D3D5D","sat":32,"cmp":["#000000","#FF00FF","#FFFFFF"],"pat":new Uint8Array([0b0010,0,0b1100,0]),"cri":{}},
+53:{"idx":17,"col":"#B83DB8","sat":70,"cmp":["#FF00FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1010,0,0b1100,0]),"cri":{}},
+58:{"idx":18,"col":"#7BB87B","sat":35,"cmp":["#80FF80","#FFFFFF","#000000"],"pat":new Uint8Array([0b0101,0,0b1100,0]),"cri":{}},
+61:{"idx":19,"col":"#B899B8","sat":15,"cmp":["#FF00FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1011,0,0b1100,0]),"cri":{}},
+65:{"idx":20,"col":"#3D003D","sat":121,"cmp":["#000000","#FF00FF"],"pat":new Uint8Array([0b1000,0,0b0010,0]),"cri":{}},
+68:{"idx":21,"col":"#400040","sat":122,"cmp":["#000000","#FF00FF"],"pat":new Uint8Array([0b0010,0,0b0010,0]),"cri":{}},
+69:{"idx":22,"col":"#9B009B","sat":123,"cmp":["#FF00FF","#000000"],"pat":new Uint8Array([0b1010,0,0b0010,0]),"cri":{}},
+70:{"idx":23,"col":"#604060","sat":31,"cmp":["#FFFFFF","#000000","#FF00FF"],"pat":new Uint8Array([0b0110,0,0b0010,0]),"cri":{}},
+71:{"idx":24,"col":"#9B5D9B","sat":38,"cmp":["#FFFFFF","#FF00FF","#000000"],"pat":new Uint8Array([0b1110,0,0b0010,0]),"cri":{}},
+74:{"idx":25,"col":"#5E7B5E","sat":23,"cmp":["#80FF80","#000000","#FF00FF"],"pat":new Uint8Array([0b0101,0,0b0010,0]),"cri":{}},
+79:{"idx":26,"col":"#9B7B9B","sat":18,"cmp":["#FFFFFF","#000000","#FF00FF"],"pat":new Uint8Array([0b1111,0,0b0010,0]),"cri":{}},
+85:{"idx":27,"col":"#F600F6","sat":122,"cmp":["#FF00FF"],"pat":new Uint8Array([0b1010,0,0b1010,0]),"cri":{}},
+86:{"idx":28,"col":"#BB40BB","sat":69,"cmp":["#FFFFFF","#000000","#FF00FF"],"pat":new Uint8Array([0b0110,0,0b1010,0]),"cri":{}},
+87:{"idx":29,"col":"#F65DF6","sat":64,"cmp":["#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1110,0,0b1010,0]),"cri":{}},
+95:{"idx":30,"col":"#F67BF6","sat":49,"cmp":["#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1111,0,0b1010,0]),"cri":{}},
+106:{"idx":31,"col":"#7DBB7D","sat":35,"cmp":["#80FF80","#FFFFFF","#000000"],"pat":new Uint8Array([0b0101,0,0b0110,0]),"cri":{}},
+109:{"idx":32,"col":"#BB9BBB","sat":15,"cmp":["#FF00FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1011,0,0b0110,0]),"cri":{}},
+121:{"idx":33,"col":"#B699B6","sat":14,"cmp":["#000000","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1001,0,0b1110,0]),"cri":{}},
+123:{"idx":34,"col":"#E6D8E6","sat":5,"cmp":["#FFFFFF","#80FF80","#FF00FF"],"pat":new Uint8Array([0b1101,0,0b1110,0]),"cri":{}},
+125:{"idx":35,"col":"#F6B8F6","sat":23,"cmp":["#FF00FF","#FFFFFF"],"pat":new Uint8Array([0b1011,0,0b1110,0]),"cri":{}},
+127:{"idx":36,"col":"#F6D8F6","sat":10,"cmp":["#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1111,0,0b1110,0]),"cri":{}},
+138:{"idx":37,"col":"#4D994D","sat":61,"cmp":["#80FF80","#000000"],"pat":new Uint8Array([0b0101,0,0b0001,0]),"cri":{}},
+139:{"idx":38,"col":"#7A997A","sat":19,"cmp":["#FFFFFF","#80FF80","#000000"],"pat":new Uint8Array([0b1101,0,0b0001,0]),"cri":{}},
+146:{"idx":39,"col":"#4B5B4B","sat":16,"cmp":["#80FF80","#000000","#FFFFFF"],"pat":new Uint8Array([0b0100,0,0b1001,0]),"cri":{}},
+152:{"idx":40,"col":"#4A594A","sat":16,"cmp":["#000000","#80FF80","#FFFFFF"],"pat":new Uint8Array([0b0001,0,0b1001,0]),"cri":{}},
+161:{"idx":41,"col":"#5B7B5B","sat":26,"cmp":["#000000","#FF00FF","#80FF80"],"pat":new Uint8Array([0b1000,0,0b0101,0]),"cri":{}},
+165:{"idx":42,"col":"#B97BB9","sat":31,"cmp":["#FF00FF","#80FF80"],"pat":new Uint8Array([0b1010,0,0b0101,0]),"cri":{}},
+170:{"idx":43,"col":"#7BF67B","sat":61,"cmp":["#80FF80"],"pat":new Uint8Array([0b0101,0,0b0101,0]),"cri":{}},
+171:{"idx":44,"col":"#A9F6A9","sat":32,"cmp":["#FFFFFF","#80FF80"],"pat":new Uint8Array([0b1101,0,0b0101,0]),"cri":{}},
+175:{"idx":45,"col":"#B9F6B9","sat":24,"cmp":["#FFFFFF","#80FF80"],"pat":new Uint8Array([0b1111,0,0b0101,0]),"cri":{}},
+181:{"idx":46,"col":"#E67BE6","sat":45,"cmp":["#FF00FF","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b1010,0,0b1101,0]),"cri":{}},
+190:{"idx":47,"col":"#D7F6D7","sat":11,"cmp":["#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0111,0,0b1101,0]),"cri":{}},
+191:{"idx":48,"col":"#E6F6E6","sat":6,"cmp":["#FFFFFF","#80FF80"],"pat":new Uint8Array([0b1111,0,0b1101,0]),"cri":{}},
+256:{"idx":49,"col":"#000000","sat":0,"cmp":["#000000"],"pat":new Uint8Array([0b0000,128,0b0000,0]),"cri":{"GREY":-1}},
+257:{"idx":50,"col":"#000F1E","sat":141,"cmp":["#000000","#0080FF"],"pat":new Uint8Array([0b1000,128,0b0000,0]),"cri":{}},
+258:{"idx":51,"col":"#201000","sat":141,"cmp":["#FF8000","#000000"],"pat":new Uint8Array([0b0100,128,0b0000,0]),"cri":{}},
+260:{"idx":52,"col":"#001020","sat":141,"cmp":["#000000","#0080FF"],"pat":new Uint8Array([0b0010,128,0b0000,0]),"cri":{}},
+261:{"idx":53,"col":"#003E7B","sat":140,"cmp":["#0080FF","#000000"],"pat":new Uint8Array([0b1010,128,0b0000,0]),"cri":{}},
+264:{"idx":54,"col":"#1E0F00","sat":141,"cmp":["#000000","#FF8000"],"pat":new Uint8Array([0b0001,128,0b0000,0]),"cri":{}},
+266:{"idx":55,"col":"#7B3E00","sat":140,"cmp":["#FF8000","#000000"],"pat":new Uint8Array([0b0101,128,0b0000,0]),"cri":{}},
+267:{"idx":56,"col":"#7B6B5B","sat":21,"cmp":["#FFFFFF","#FF8000","#000000"],"pat":new Uint8Array([0b1101,128,0b0000,0]),"cri":{}},
+274:{"idx":57,"col":"#3D101E","sat":90,"cmp":["#FF8000","#000000","#FF00FF"],"pat":new Uint8Array([0b0100,128,0b1000,0]),"cri":{}},
+276:{"idx":58,"col":"#1E103D","sat":90,"cmp":["#000000","#0080FF","#FF00FF"],"pat":new Uint8Array([0b0010,128,0b1000,0]),"cri":{}},
+277:{"idx":59,"col":"#1E3E99","sat":110,"cmp":["#0080FF","#000000","#FF00FF"],"pat":new Uint8Array([0b1010,128,0b1000,0]),"cri":{}},
+279:{"idx":60,"col":"#7B6C99","sat":25,"cmp":["#FFFFFF","#0080FF","#000000","#FF00FF"],"pat":new Uint8Array([0b1110,128,0b1000,0]),"cri":{}},
+282:{"idx":61,"col":"#993E1E","sat":110,"cmp":["#FF8000","#000000","#FF00FF"],"pat":new Uint8Array([0b0101,128,0b1000,0]),"cri":{}},
+289:{"idx":62,"col":"#102F2E","sat":69,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b1000,128,0b0100,0]),"cri":{}},
+292:{"idx":63,"col":"#103030","sat":71,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b0010,128,0b0100,0]),"cri":{}},
+293:{"idx":64,"col":"#105E8B","sat":106,"cmp":["#0080FF","#80FF80","#000000"],"pat":new Uint8Array([0b1010,128,0b0100,0]),"cri":{}},
+296:{"idx":65,"col":"#2E2F10","sat":69,"cmp":["#000000","#FF8000","#80FF80"],"pat":new Uint8Array([0b0001,128,0b0100,0]),"cri":{}},
+298:{"idx":66,"col":"#8B5E10","sat":106,"cmp":["#FF8000","#80FF80","#000000"],"pat":new Uint8Array([0b0101,128,0b0100,0]),"cri":{}},
+299:{"idx":67,"col":"#8B8B6B","sat":20,"cmp":["#FFFFFF","#FF8000","#80FF80","#000000"],"pat":new Uint8Array([0b1101,128,0b0100,0]),"cri":{}},
+309:{"idx":68,"col":"#3D7BB8","sat":71,"cmp":["#0080FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1010,128,0b1100,0]),"cri":{}},
+312:{"idx":69,"col":"#5B4C3D","sat":28,"cmp":["#000000","#FF8000","#FFFFFF"],"pat":new Uint8Array([0b0001,128,0b1100,0]),"cri":{}},
+314:{"idx":70,"col":"#B87B3D","sat":71,"cmp":["#FF8000","#FFFFFF","#000000"],"pat":new Uint8Array([0b0101,128,0b1100,0]),"cri":{}},
+317:{"idx":71,"col":"#99A9B8","sat":13,"cmp":["#0080FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1011,128,0b1100,0]),"cri":{}},
+321:{"idx":72,"col":"#200F3D","sat":91,"cmp":["#000000","#0080FF","#FF00FF"],"pat":new Uint8Array([0b1000,128,0b0010,0]),"cri":{}},
+322:{"idx":73,"col":"#401020","sat":93,"cmp":["#FF8000","#000000","#FF00FF"],"pat":new Uint8Array([0b0100,128,0b0010,0]),"cri":{}},
+324:{"idx":74,"col":"#201040","sat":93,"cmp":["#000000","#0080FF","#FF00FF"],"pat":new Uint8Array([0b0010,128,0b0010,0]),"cri":{}},
+325:{"idx":75,"col":"#203E9B","sat":109,"cmp":["#0080FF","#000000","#FF00FF"],"pat":new Uint8Array([0b1010,128,0b0010,0]),"cri":{}},
+327:{"idx":76,"col":"#7D6C9B","sat":26,"cmp":["#FFFFFF","#0080FF","#000000","#FF00FF"],"pat":new Uint8Array([0b1110,128,0b0010,0]),"cri":{}},
+328:{"idx":77,"col":"#3D0F20","sat":91,"cmp":["#000000","#FF8000","#FF00FF"],"pat":new Uint8Array([0b0001,128,0b0010,0]),"cri":{}},
+330:{"idx":78,"col":"#9B3E20","sat":109,"cmp":["#FF8000","#000000","#FF00FF"],"pat":new Uint8Array([0b0101,128,0b0010,0]),"cri":{}},
+337:{"idx":79,"col":"#7B0F99","sat":106,"cmp":["#000000","#0080FF","#FF00FF"],"pat":new Uint8Array([0b1000,128,0b1010,0]),"cri":{}},
+338:{"idx":80,"col":"#9B107B","sat":105,"cmp":["#FF8000","#000000","#FF00FF"],"pat":new Uint8Array([0b0100,128,0b1010,0]),"cri":{}},
+340:{"idx":81,"col":"#7B109B","sat":105,"cmp":["#000000","#0080FF","#FF00FF"],"pat":new Uint8Array([0b0010,128,0b1010,0]),"cri":{}},
+341:{"idx":82,"col":"#7B3EF6","sat":92,"cmp":["#0080FF","#FF00FF"],"pat":new Uint8Array([0b1010,128,0b1010,0]),"cri":{}},
+344:{"idx":83,"col":"#990F7B","sat":106,"cmp":["#000000","#FF8000","#FF00FF"],"pat":new Uint8Array([0b0001,128,0b1010,0]),"cri":{}},
+346:{"idx":84,"col":"#F63E7B","sat":92,"cmp":["#FF8000","#FF00FF"],"pat":new Uint8Array([0b0101,128,0b1010,0]),"cri":{}},
+347:{"idx":85,"col":"#F66BD6","sat":54,"cmp":["#FFFFFF","#FF8000","#FF00FF"],"pat":new Uint8Array([0b1101,128,0b1010,0]),"cri":{}},
+349:{"idx":86,"col":"#D66BF6","sat":54,"cmp":["#0080FF","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1011,128,0b1010,0]),"cri":{}},
+353:{"idx":87,"col":"#404F5D","sat":26,"cmp":["#000000","#0080FF","#FFFFFF"],"pat":new Uint8Array([0b1000,128,0b0110,0]),"cri":{}},
+354:{"idx":88,"col":"#605040","sat":28,"cmp":["#FF8000","#000000","#FFFFFF"],"pat":new Uint8Array([0b0100,128,0b0110,0]),"cri":{}},
+356:{"idx":89,"col":"#405060","sat":28,"cmp":["#000000","#0080FF","#FFFFFF"],"pat":new Uint8Array([0b0010,128,0b0110,0]),"cri":{}},
+357:{"idx":90,"col":"#407DBB","sat":70,"cmp":["#0080FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1010,128,0b0110,0]),"cri":{}},
+360:{"idx":91,"col":"#5D4F40","sat":26,"cmp":["#000000","#FF8000","#FFFFFF"],"pat":new Uint8Array([0b0001,128,0b0110,0]),"cri":{}},
+362:{"idx":92,"col":"#BB7D40","sat":70,"cmp":["#FF8000","#FFFFFF","#000000"],"pat":new Uint8Array([0b0101,128,0b0110,0]),"cri":{}},
+365:{"idx":93,"col":"#9BABBB","sat":13,"cmp":["#0080FF","#FFFFFF","#000000"],"pat":new Uint8Array([0b1011,128,0b0110,0]),"cri":{}},
+372:{"idx":94,"col":"#7B6D9B","sat":26,"cmp":["#000000","#0080FF","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b0010,128,0b1110,0]),"cri":{}},
+373:{"idx":95,"col":"#7B9BF6","sat":52,"cmp":["#0080FF","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1010,128,0b1110,0]),"cri":{}},
+378:{"idx":96,"col":"#F69B7B","sat":52,"cmp":["#FF8000","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b0101,128,0b1110,0]),"cri":{}},
+381:{"idx":97,"col":"#D6C8F6","sat":15,"cmp":["#0080FF","#FFFFFF","#FF00FF"],"pat":new Uint8Array([0b1011,128,0b1110,0]),"cri":{}},
+382:{"idx":98,"col":"#F6CAD8","sat":14,"cmp":["#FFFFFF","#FF8000","#FF00FF"],"pat":new Uint8Array([0b0111,128,0b1110,0]),"cri":{}},
+385:{"idx":99,"col":"#0F2C2C","sat":70,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b1000,128,0b0001,0]),"cri":{}},
+386:{"idx":100,"col":"#2F2E0F","sat":71,"cmp":["#FF8000","#000000","#80FF80"],"pat":new Uint8Array([0b0100,128,0b0001,0]),"cri":{}},
+388:{"idx":101,"col":"#0F2E2F","sat":71,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b0010,128,0b0001,0]),"cri":{}},
+394:{"idx":102,"col":"#8A5B0F","sat":108,"cmp":["#FF8000","#000000","#80FF80"],"pat":new Uint8Array([0b0101,128,0b0001,0]),"cri":{}},
+395:{"idx":103,"col":"#8A896A","sat":20,"cmp":["#FFFFFF","#FF8000","#000000","#80FF80"],"pat":new Uint8Array([0b1101,128,0b0001,0]),"cri":{}},
+417:{"idx":104,"col":"#3E8A5B","sat":56,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b1000,128,0b0101,0]),"cri":{}},
+418:{"idx":105,"col":"#5E8B3E","sat":56,"cmp":["#FF8000","#000000","#80FF80"],"pat":new Uint8Array([0b0100,128,0b0101,0]),"cri":{}},
+420:{"idx":106,"col":"#3E8B5E","sat":56,"cmp":["#000000","#0080FF","#80FF80"],"pat":new Uint8Array([0b0010,128,0b0101,0]),"cri":{}},
+421:{"idx":107,"col":"#3EB9B9","sat":70,"cmp":["#0080FF","#80FF80"],"pat":new Uint8Array([0b1010,128,0b0101,0]),"cri":{}},
+423:{"idx":108,"col":"#9BE7B9","sat":28,"cmp":["#FFFFFF","#0080FF","#80FF80"],"pat":new Uint8Array([0b1110,128,0b0101,0]),"cri":{}},
+424:{"idx":109,"col":"#5B8A3E","sat":56,"cmp":["#000000","#FF8000","#80FF80"],"pat":new Uint8Array([0b0001,128,0b0101,0]),"cri":{}},
+426:{"idx":110,"col":"#B9B93E","sat":70,"cmp":["#FF8000","#80FF80"],"pat":new Uint8Array([0b0101,128,0b0101,0]),"cri":{}},
+427:{"idx":111,"col":"#B9E699","sat":29,"cmp":["#FFFFFF","#FF8000","#80FF80"],"pat":new Uint8Array([0b1101,128,0b0101,0]),"cri":{}},
+436:{"idx":112,"col":"#6B8B8B","sat":20,"cmp":["#000000","#0080FF","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0010,128,0b1101,0]),"cri":{}},
+439:{"idx":113,"col":"#C8E7E6","sat":11,"cmp":["#FFFFFF","#0080FF","#80FF80"],"pat":new Uint8Array([0b1110,128,0b1101,0]),"cri":{}},
+440:{"idx":114,"col":"#898A6B","sat":20,"cmp":["#000000","#FF8000","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0001,128,0b1101,0]),"cri":{}},
+446:{"idx":115,"col":"#E6E7C8","sat":11,"cmp":["#FFFFFF","#FF8000","#80FF80"],"pat":new Uint8Array([0b0111,128,0b1101,0]),"cri":{}},
+449:{"idx":116,"col":"#3D4C5B","sat":28,"cmp":["#000000","#0080FF","#FFFFFF"],"pat":new Uint8Array([0b1000,128,0b0011,0]),"cri":{}},
+450:{"idx":117,"col":"#5D4D3D","sat":29,"cmp":["#FF8000","#000000","#FFFFFF"],"pat":new Uint8Array([0b0100,128,0b0011,0]),"cri":{}},
+452:{"idx":118,"col":"#3D4D5D","sat":29,"cmp":["#000000","#0080FF","#FFFFFF"],"pat":new Uint8Array([0b0010,128,0b0011,0]),"cri":{}},
+466:{"idx":119,"col":"#9B6B7B","sat":27,"cmp":["#FF8000","#000000","#FF00FF","#FFFFFF"],"pat":new Uint8Array([0b0100,128,0b1011,0]),"cri":{}},
+472:{"idx":120,"col":"#996A7B","sat":27,"cmp":["#000000","#FF8000","#FF00FF","#FFFFFF"],"pat":new Uint8Array([0b0001,128,0b1011,0]),"cri":{}},
+482:{"idx":121,"col":"#8C8B6C","sat":20,"cmp":["#FF8000","#000000","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0100,128,0b0111,0]),"cri":{}},
+483:{"idx":122,"col":"#AAB8AA","sat":7,"cmp":["#FFFFFF","#000000","#80FF80"],"pat":new Uint8Array([0b1100,128,0b0111,0]),"cri":{}},
+484:{"idx":123,"col":"#6C8B8C","sat":20,"cmp":["#000000","#0080FF","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0010,128,0b0111,0]),"cri":{}},
+488:{"idx":124,"col":"#8A8A6C","sat":19,"cmp":["#000000","#FF8000","#FFFFFF","#80FF80"],"pat":new Uint8Array([0b0001,128,0b0111,0]),"cri":{}},
+501:{"idx":125,"col":"#7BB9F6","sat":47,"cmp":["#0080FF","#FFFFFF"],"pat":new Uint8Array([0b1010,128,0b1111,0]),"cri":{}},
+512:{"idx":126,"col":"#000000","sat":0,"cmp":["#000000"],"pat":new Uint8Array([0b0000,128,0b0000,128]),"cri":{"PROX":3}},
+519:{"idx":127,"col":"#5D6C7B","sat":20,"cmp":["#FFFFFF","#0080FF","#000000"],"pat":new Uint8Array([0b1110,128,0b0000,128]),"cri":{}},
+532:{"idx":128,"col":"#001F3D","sat":139,"cmp":["#000000","#0080FF"],"pat":new Uint8Array([0b0010,128,0b1000,128]),"cri":{}},
+533:{"idx":129,"col":"#004D99","sat":141,"cmp":["#0080FF","#000000"],"pat":new Uint8Array([0b1010,128,0b1000,128]),"cri":{}},
+535:{"idx":130,"col":"#5D7B99","sat":34,"cmp":["#FFFFFF","#0080FF","#000000"],"pat":new Uint8Array([0b1110,128,0b1000,128]),"cri":{}},
+543:{"idx":131,"col":"#7B8A99","sat":15,"cmp":["#FFFFFF","#000000","#0080FF"],"pat":new Uint8Array([0b1111,128,0b1000,128]),"cri":{}},
+552:{"idx":132,"col":"#3D1F00","sat":139,"cmp":["#000000","#FF8000"],"pat":new Uint8Array([0b0001,128,0b0100,128]),"cri":{}},
+554:{"idx":133,"col":"#9B4E00","sat":141,"cmp":["#FF8000","#000000"],"pat":new Uint8Array([0b0101,128,0b0100,128]),"cri":{}},
+555:{"idx":134,"col":"#9B7B5B","sat":37,"cmp":["#FFFFFF","#FF8000","#000000"],"pat":new Uint8Array([0b1101,128,0b0100,128]),"cri":{}},
+580:{"idx":135,"col":"#002040","sat":141,"cmp":["#000000","#0080FF"],"pat":new Uint8Array([0b0010,128,0b0010,128]),"cri":{}},
+581:{"idx":136,"col":"#004E9B","sat":141,"cmp":["#0080FF","#000000"],"pat":new Uint8Array([0b1010,128,0b0010,128]),"cri":{}},
+583:{"idx":137,"col":"#5D7C9B","sat":35,"cmp":["#FFFFFF","#0080FF","#000000"],"pat":new Uint8Array([0b1110,128,0b0010,128]),"cri":{}},
+586:{"idx":138,"col":"#7B4E20","sat":83,"cmp":["#FF8000","#000000","#0080FF"],"pat":new Uint8Array([0b0101,128,0b0010,128]),"cri":{}},
+591:{"idx":139,"col":"#7B8B9B","sat":16,"cmp":["#FFFFFF","#000000","#0080FF"],"pat":new Uint8Array([0b1111,128,0b0010,128]),"cri":{}},
+597:{"idx":140,"col":"#007BF6","sat":141,"cmp":["#0080FF"],"pat":new Uint8Array([0b1010,128,0b1010,128]),"cri":{}},
+599:{"idx":141,"col":"#5DAAF6","sat":64,"cmp":["#FFFFFF","#0080FF"],"pat":new Uint8Array([0b1110,128,0b1010,128]),"cri":{}},
+633:{"idx":142,"col":"#99A7B6","sat":12,"cmp":["#000000","#FFFFFF","#0080FF"],"pat":new Uint8Array([0b1001,128,0b1110,128]),"cri":{}},
+634:{"idx":143,"col":"#D8AA7B","sat":39,"cmp":["#FF8000","#FFFFFF","#0080FF"],"pat":new Uint8Array([0b0101,128,0b1110,128]),"cri":{}},
+637:{"idx":144,"col":"#B8D7F6","sat":20,"cmp":["#0080FF","#FFFFFF"],"pat":new Uint8Array([0b1011,128,0b1110,128]),"cri":{}},
+639:{"idx":145,"col":"#D8E7F6","sat":9,"cmp":["#FFFFFF","#0080FF"],"pat":new Uint8Array([0b1111,128,0b1110,128]),"cri":{}},
+650:{"idx":146,"col":"#994D00","sat":141,"cmp":["#FF8000","#000000"],"pat":new Uint8Array([0b0101,128,0b0001,128]),"cri":{}},
+651:{"idx":147,"col":"#997A5B","sat":36,"cmp":["#FFFFFF","#FF8000","#000000"],"pat":new Uint8Array([0b1101,128,0b0001,128]),"cri":{}},
+673:{"idx":148,"col":"#7B4D1E","sat":85,"cmp":["#000000","#0080FF","#FF8000"],"pat":new Uint8Array([0b1000,128,0b0101,128]),"cri":{}},
+682:{"idx":149,"col":"#F67B00","sat":141,"cmp":["#FF8000"],"pat":new Uint8Array([0b0101,128,0b0101,128]),"cri":{}},
+683:{"idx":150,"col":"#F6A95B","sat":65,"cmp":["#FFFFFF","#FF8000"],"pat":new Uint8Array([0b1101,128,0b0101,128]),"cri":{}},
+687:{"idx":151,"col":"#F6B97B","sat":47,"cmp":["#FFFFFF","#FF8000"],"pat":new Uint8Array([0b1111,128,0b0101,128]),"cri":{}},
+693:{"idx":152,"col":"#7BA9D6","sat":38,"cmp":["#0080FF","#FFFFFF","#FF8000"],"pat":new Uint8Array([0b1010,128,0b1101,128]),"cri":{}},
+702:{"idx":153,"col":"#F6D7B8","sat":20,"cmp":["#FFFFFF","#FF8000"],"pat":new Uint8Array([0b0111,128,0b1101,128]),"cri":{}},
+703:{"idx":154,"col":"#F6E6D6","sat":10,"cmp":["#FFFFFF","#FF8000"],"pat":new Uint8Array([0b1111,128,0b1101,128]),"cri":{}}
+}
+
+Is it possible to write a JavaScript function that through a Generative Adversarial Network can approximate colors by dithering from any given png image sized  (example provided) into a byte array 
+
+const INTCols = new Uint8Array([
+   0X00,0X00,0X00,0X0,0x00,0x00,0x00,0x0,0x00,0x00,0x00,0x0,0x00,0x00,0x00,0x0  // Black
+  ,0X90,0X17,0X40,0X0,0x4D,0x4D,0x4D,0x0,0x30,0x4D,0x48,0x0,0x4C,0x46,0x31,0x0  // Magenta
+  ,0X40,0X2C,0XA5,0X0,0x5B,0x5B,0x5B,0x0,0x39,0x5B,0x56,0x0,0x5A,0x52,0x39,0x0  // Dark Blue
+  ,0XD0,0X43,0XE5,0X0,0xA8,0xA8,0xA8,0x0,0x69,0xA8,0x9E,0x0,0xA6,0x98,0x6A,0x0  // Purple
+  ,0X00,0X69,0X40,0X0,0x38,0x38,0x38,0x0,0x23,0x38,0x35,0x0,0x38,0x33,0x24,0x0  // Dark Green
+  ,0X80,0X80,0X80,0X0,0x80,0x80,0x80,0x0,0x50,0x80,0x78,0x0,0x7E,0x74,0x51,0x0  // Grey 1
+  ,0X2F,0X95,0XE5,0X0,0x8E,0x8E,0x8E,0x0,0x59,0x8E,0x85,0x0,0x8C,0x80,0x59,0x0  // Medium Blue
+  ,0XBF,0XAB,0XFF,0X0,0xCE,0xCE,0xCE,0x0,0x81,0xCE,0xC2,0x0,0xCB,0xBA,0x82,0x0  // Light Blue
+  ,0X40,0X54,0X00,0X0,0x31,0x31,0x31,0x0,0x1F,0x31,0x2E,0x0,0x31,0x2D,0x1F,0x0  // Brown
+  ,0XD0,0X6A,0X1A,0X0,0x71,0x71,0x71,0x0,0x47,0x71,0x6B,0x0,0x70,0x67,0x48,0x0  // Orange
+  ,0X80,0X80,0X80,0X0,0x80,0x80,0x80,0x0,0x50,0x80,0x78,0x0,0x7E,0x74,0x51,0x0  // Grey 2
+  ,0XFF,0X96,0XBF,0X0,0xC7,0xC7,0xC7,0x0,0x7D,0xC7,0xBB,0x0,0xC4,0xB4,0x7D,0x0  // Pink
+  ,0X2F,0XBC,0X1A,0X0,0x57,0x57,0x57,0x0,0x37,0x57,0x52,0x0,0x56,0x4F,0x37,0x0  // Light Green
+  ,0XBF,0XD3,0X5A,0X0,0xA4,0xA4,0xA4,0x0,0x67,0xA4,0x9A,0x0,0xA2,0x95,0x68,0x0  // Yellow  
+  ,0X6F,0XE8,0XBF,0X0,0xB2,0xB2,0xB2,0x0,0x70,0xB2,0xA8,0x0,0xB0,0xA1,0x70,0x0  // Aquamarine
+  ,0XFF,0XFF,0XFF,0X0,0xFF,0xFF,0xFF,0x0,0xA0,0xFF,0xF0,0x0,0xFC,0xE7,0xA1,0x0  // White
+  ]);
+
+Function ()
+
+
+
