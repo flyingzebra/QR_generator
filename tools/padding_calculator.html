@@ -1,6 +1,11 @@
 <script>
-var pix = {true:"data:image/gif;base64,R0lGODdhAQABAPAAAAAAAAAAACwAAAAAAQABAAACAkQBADs=",false:"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
-var r_pix =    {pix[true]:true,pix[false]:false};   // reverse-lookup pixels
+var pix = {true:"data:image/gif;base64,R0lGODdhAQABAPAAAAAAAAAAACwAAAAAAQABAAACAkQBADs="
+         ,false:"data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="};
+
+// reverse-lookup pixels
+var r_pix = {};
+r_pix[ pix[true] ] = true;
+r_pix[ pix[false] ] = false;
 
 var _this = new _THIS();
 function _THIS()
